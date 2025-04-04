@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4imcw072kxsj"]
+
+[ext_resource type="Script" path="res://level_2.gd" id="1_iwwul"]
+
+[node name="Level_2" type="Node2D"]
+script = ExtResource("1_iwwul")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(0, 7.37643)
+scale = Vector2(1, 0.991343)
+polygon = PackedVector2Array(0, 5, 2, 644, 1153, 655, 1149, 3, 1038, 1, 1045, 266, 884, 263, 888, 295, 1043, 295, 1044, 426, 777, 426, 777, 461, 1039, 465, 1041, 573, 609, 566, 607, 256, 481, 255, 478, 348, 362, 362, 356, 455, 245, 470, 239, 523, 76, 542, 56, -2)
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D/CollisionPolygon2D"]
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(997, 236)

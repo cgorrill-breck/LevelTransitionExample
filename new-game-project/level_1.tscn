@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6qo5roebcnfb"]
+
+[ext_resource type="Script" path="res://level_1.gd" id="1_7ha3d"]
+[ext_resource type="PackedScene" uid="uid://d4imcw072kxsj" path="res://level_2.tscn" id="2_4atfo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8c5ke"]
+size = Vector2(44, 74)
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_7ha3d")
+next_level = ExtResource("2_4atfo")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(2, 2, 1, 648, 1156, 646, 1153, -1, 1124, 1, 1086, 482, 816, 453, 672, 355, 566, 358, 561, 442, 445, 442, 444, 556, 186, 557, 188, 455, 73, 456, 75, 401, 127, 401, 130, 356, 30, 353, 29, -5)
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D/CollisionPolygon2D"]
+
+[node name="goal" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="GoalCollision" type="CollisionShape2D" parent="goal"]
+position = Vector2(1057, 446)
+shape = SubResource("RectangleShape2D_8c5ke")
+
+[node name="GoalShape" type="Polygon2D" parent="goal/GoalCollision"]
+color = Color(1, 1, 0, 1)
+polygon = PackedVector2Array(-22, -38, -21, 34, 22, 36, 22, -37)
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(78, 319)
+
+[connection signal="area_entered" from="goal" to="." method="_on_goal_area_entered"]
+[connection signal="body_entered" from="goal" to="." method="_on_goal_body_entered"]
