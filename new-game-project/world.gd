@@ -33,4 +33,4 @@ func _on_start():
 
 func _on_level_complete():
 	if "next_level" in current_level and current_level.next_level:
-		call_deferred("load_level", current_level.next_level)  # Safe execution
+		call_deferred("load_level", current_level.next_level) 
