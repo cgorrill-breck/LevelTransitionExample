@@ -1,10 +1,11 @@
-[gd_scene load_steps=33 format=3 uid="uid://d11olgekkxxlo"]
+[gd_scene load_steps=35 format=3 uid="uid://d11olgekkxxlo"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_8666m"]
 [ext_resource type="Texture2D" uid="uid://bdgcbyej22xpk" path="res://assets/Main Characters/Virtual Guy/Fall (32x32).png" id="2_xc2nl"]
 [ext_resource type="Texture2D" uid="uid://cnb8xg53va3h3" path="res://assets/Main Characters/Virtual Guy/Idle (32x32).png" id="3_uxlkb"]
 [ext_resource type="Texture2D" uid="uid://q3l4p6sq26vp" path="res://assets/Main Characters/Virtual Guy/Jump (32x32).png" id="4_wang6"]
 [ext_resource type="Texture2D" uid="uid://b7bibgb6ylkbl" path="res://assets/Main Characters/Virtual Guy/Run (32x32).png" id="5_rttrm"]
+[ext_resource type="Texture2D" uid="uid://kiovndhvqbet" path="res://assets/Main Characters/Virtual Guy/wall_cling.png" id="6_hiisw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fsedu"]
 atlas = ExtResource("2_xc2nl")
@@ -106,6 +107,10 @@ region = Rect2(320, 0, 32, 32)
 atlas = ExtResource("5_rttrm")
 region = Rect2(352, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_yh6xr"]
+atlas = ExtResource("6_hiisw")
+region = Rect2(0, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_mdxv4"]
 animations = [{
 "frames": [{
@@ -202,6 +207,14 @@ animations = [{
 "loop": true,
 "name": &"run",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yh6xr")
+}],
+"loop": true,
+"name": &"wall_cling",
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bs7i8"]
@@ -213,15 +226,20 @@ script = ExtResource("1_8666m")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_mdxv4")
-animation = &"run"
-frame_progress = 0.0267435
+animation = &"wall_cling"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_bs7i8")
 
 [node name="CoyoteTime" type="Timer" parent="."]
-wait_time = 0.125
+wait_time = 0.1
 one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)
+limit_left = 0
+limit_top = 0
+limit_smoothed = true
 
 [connection signal="timeout" from="CoyoteTime" to="." method="_on_coyote_time_timeout"]

@@ -23,4 +23,3 @@ func _on_goal_area_entered(area: Area2D) -> void:
 func _on_goal_body_entered(body: Node2D) -> void:
 	print("on goal")
 	level_complete.emit()
-	pass # Replace with function body.
