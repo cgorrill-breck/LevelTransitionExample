@@ -40,7 +40,7 @@ func handle_coyote_time():
 
 func handle_jump(delta):
 	handle_coyote_time()
-
+	handle_jump_buffering(delta)
 	if is_on_floor():
 		jumps_remaining = MAX_JUMPS_ALLOWED
 
@@ -57,8 +57,7 @@ func handle_jump(delta):
 
 		in_coyote_time = false
 	
-		print("Jump! Remaining: ", jumps_remaining)
-	handle_jump_buffering(delta)
+	
 
 func apply_gravity(delta):
 	if not is_on_floor():
