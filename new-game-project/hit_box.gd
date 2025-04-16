@@ -1,19 +1,19 @@
-extends Node2D
-class_name Level1
-@export var next_level : PackedScene
+extends Area2D
+class_name HitBox
 
-signal level_complete
+var damage
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	set_damage()
 	pass # Replace with function body.
 
-
+func set_damage():
+	if get_parent().has_method("get_damage"):
+		damage = get_parent().get_damage()
+	else:
+		damage = 10
+		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-
-func _on_goal_body_entered(body: Node2D) -> void:
-	print("on goal")
-	level_complete.emit()

@@ -1,20 +1,6 @@
 extends CharacterBody2D
 
 
-const SPEED = 200.0
-const JUMP_VELOCITY = -460.0
-const MAX_JUMPS_ALLOWED = 2
-const ACCELERATION_GROUND = 1000.0
-const ACCELERATION_AIR = 600.0
-const AIR_TURN_ACCELERATION = 500.0  # Lower for more slowdown when reversing in air
-const FRICTION_GROUND = 800.0
-const FRICTION_AIR = 300.0
-
-const WALL_SLIDE_SPEED = 10.0
-const WALL_JUMP_FORCE = Vector2(50, -460)  # X is push away from wall, Y is jump up
-const WALL_JUMP_DURATION = 0.2
-
-
 var is_on_wall_clinging = false
 var wall_jump_lock_time = 0.2
 var wall_normal = Vector2.ZERO
@@ -26,15 +12,18 @@ var wall_normal = Vector2.ZERO
 @onready var camera_2d: Camera2D = $Camera2D
 
 @export var jump_buffer_time := 0.125
+@export var data : PlayerData
+
 
 var jump_buffer_remaining := 0.0
 var animation_direction = "right"
 var in_coyote_time = false
-var jumps_remaining = MAX_JUMPS_ALLOWED
+var jumps_remaining : int
 
 func _ready() -> void:
 	camera_2d.limit_bottom = get_viewport_rect().size.y
 	camera_2d.limit_right = get_viewport_rect().size.x
+	jumps_remaining = data.MAX_JUMPS_ALLOWED
 
 func _physics_process(delta: float) -> void:
 	if wall_jump_lock_time > 0:
@@ -58,16 +47,16 @@ func handle_movement(delta):
 	if is_airborne:
 		# If you're trying to reverse direction midair, use lower acceleration
 		if sign(direction) != sign(velocity.x) and direction != 0 and abs(velocity.x) > 20:
-			accel = AIR_TURN_ACCELERATION
+			accel = data.AIR_TURN_ACCELERATION
 		else:
-			accel = ACCELERATION_AIR
-		friction = FRICTION_AIR
+			accel = data.ACCELERATION_AIR
+		friction = data.FRICTION_AIR
 	else:
-		accel = ACCELERATION_GROUND
-		friction = FRICTION_GROUND
+		accel = data.ACCELERATION_GROUND
+		friction = data.FRICTION_GROUND
 
 	if direction != 0:
-		velocity.x = move_toward(velocity.x, direction * SPEED, accel * delta)
+		velocity.x = move_toward(velocity.x, direction * data.SPEED, accel * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
 
@@ -88,13 +77,13 @@ func handle_jump(delta):
 	handle_coyote_time()
 	handle_jump_buffering(delta)
 	if is_on_floor():
-		jumps_remaining = MAX_JUMPS_ALLOWED
+		jumps_remaining = data.MAX_JUMPS_ALLOWED
 
 	var can_jump := is_on_floor() or in_coyote_time or jumps_remaining > 0
 	handle_wall_cling()
 	if jump_buffer_remaining > 0:
 		if can_jump:
-			velocity.y = JUMP_VELOCITY
+			velocity.y = data.JUMP_VELOCITY
 			jump_buffer_remaining = 0
 
 			if is_on_floor() or in_coyote_time:
@@ -105,8 +94,8 @@ func handle_jump(delta):
 			in_coyote_time = false
 
 		elif is_on_wall_clinging:
-			velocity = Vector2(WALL_JUMP_FORCE.x * sign(wall_normal.x), WALL_JUMP_FORCE.y)
-			wall_jump_lock_time = WALL_JUMP_DURATION
+			velocity = Vector2(data.WALL_JUMP_FORCE.x * sign(wall_normal.x), data.WALL_JUMP_FORCE.y)
+			wall_jump_lock_time = data.WALL_JUMP_DURATION
 			jump_buffer_remaining = 0
 			print("WALL JUMP! Direction: ", wall_normal, " | Velocity: ", velocity)
 
@@ -121,9 +110,10 @@ func handle_wall_cling():
 
 		# Only cling if pushing into wall
 		if (get_wall_normal().x > 0 and input_dir < 0) or (get_wall_normal().x < 0 and input_dir > 0):
+			animated_sprite_2d.scale.x = get_wall_normal().x * -1 #make the sprite face the wall
 			is_on_wall_clinging = true
 			wall_normal = get_wall_normal()
-			velocity.y = min(velocity.y, WALL_SLIDE_SPEED)
+			velocity.y = min(velocity.y, data.WALL_SLIDE_SPEED)
 
 
 
@@ -162,3 +152,10 @@ func handle_animation(direction):
 
 func _on_coyote_time_timeout() -> void:
 	in_coyote_time = false
+
+
+
+
+
+func _on_hurt_box_hurt(hitbox: HitBox) -> void:
+	print("HIT")

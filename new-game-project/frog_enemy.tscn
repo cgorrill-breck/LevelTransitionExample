@@ -1,0 +1,214 @@
+[gd_scene load_steps=31 format=3 uid="uid://b18r43n2rmp3j"]
+
+[ext_resource type="Script" path="res://frog_enemy.gd" id="1_87kct"]
+[ext_resource type="Texture2D" uid="uid://uyxdufowv3lp" path="res://assets/Main Characters/Ninja Frog/Idle (32x32).png" id="2_5nhs1"]
+[ext_resource type="Texture2D" uid="uid://cyobnbw0soirf" path="res://assets/Main Characters/Ninja Frog/Run (32x32).png" id="3_2eucw"]
+[ext_resource type="PackedScene" uid="uid://dk1jevcfatlp3" path="res://hit_box.tscn" id="4_dgwje"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7m6s"]
+atlas = ExtResource("2_5nhs1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4uxl2"]
+atlas = ExtResource("2_5nhs1")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jf3wb"]
+atlas = ExtResource("2_5nhs1")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqd3a"]
+atlas = ExtResource("2_5nhs1")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xy6w4"]
+atlas = ExtResource("2_5nhs1")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ma8yf"]
+atlas = ExtResource("2_5nhs1")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmt0h"]
+atlas = ExtResource("2_5nhs1")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4pub"]
+atlas = ExtResource("2_5nhs1")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghfjs"]
+atlas = ExtResource("2_5nhs1")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fyxse"]
+atlas = ExtResource("2_5nhs1")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2grg"]
+atlas = ExtResource("2_5nhs1")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c2rix"]
+atlas = ExtResource("3_2eucw")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_akk70"]
+atlas = ExtResource("3_2eucw")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejvqj"]
+atlas = ExtResource("3_2eucw")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dypxo"]
+atlas = ExtResource("3_2eucw")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhd1u"]
+atlas = ExtResource("3_2eucw")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5n6aw"]
+atlas = ExtResource("3_2eucw")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6kk12"]
+atlas = ExtResource("3_2eucw")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_plhug"]
+atlas = ExtResource("3_2eucw")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ad8y"]
+atlas = ExtResource("3_2eucw")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3u2oi"]
+atlas = ExtResource("3_2eucw")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_byxfm"]
+atlas = ExtResource("3_2eucw")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tihvw"]
+atlas = ExtResource("3_2eucw")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mkiqf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7m6s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4uxl2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jf3wb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqd3a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xy6w4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ma8yf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hmt0h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4pub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghfjs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fyxse")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2grg")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c2rix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_akk70")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ejvqj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dypxo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhd1u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5n6aw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6kk12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_plhug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ad8y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3u2oi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_byxfm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tihvw")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w2fc5"]
+height = 24.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5ijjj"]
+radius = 25.0
+height = 50.0
+
+[node name="FrogEnemy" type="CharacterBody2D"]
+script = ExtResource("1_87kct")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 35
+sprite_frames = SubResource("SpriteFrames_mkiqf")
+animation = &"walk"
+autoplay = "walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_w2fc5")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+self_modulate = Color(0, 0, 1, 1)
+target_position = Vector2(15, 22)
+collide_with_areas = true
+
+[node name="HitBox" parent="." instance=ExtResource("4_dgwje")]
+collision_mask = 16
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+shape = SubResource("CapsuleShape2D_5ijjj")
+debug_color = Color(0.964389, 0, 0.493054, 0.42)
+
+[editable path="HitBox"]

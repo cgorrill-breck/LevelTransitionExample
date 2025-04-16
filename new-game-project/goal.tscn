@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8v4dtmv0lvhr"]
+
+[ext_resource type="Texture2D" uid="uid://dy1falblaqpbh" path="res://assets/Items/Checkpoints/End/End (Idle).png" id="1_03bnl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kf1bc"]
+size = Vector2(28, 40)
+
+[sub_resource type="Gradient" id="Gradient_nhdyr"]
+offsets = PackedFloat32Array(0, 0.679671)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3b6vs"]
+gradient = SubResource("Gradient_nhdyr")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Goal" type="Area2D"]
+light_mask = 34
+visibility_layer = 16
+collision_layer = 4
+collision_mask = 2
+
+[node name="GoalCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_kf1bc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 34
+texture = ExtResource("1_03bnl")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+light_mask = 0
+visibility_layer = 32
+color = Color(0.882353, 0.792157, 0.2, 1)
+range_item_cull_mask = 32
+texture = SubResource("GradientTexture2D_3b6vs")
+texture_scale = 2.67

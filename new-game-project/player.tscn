@@ -1,11 +1,30 @@
-[gd_scene load_steps=35 format=3 uid="uid://d11olgekkxxlo"]
+[gd_scene load_steps=41 format=3 uid="uid://d11olgekkxxlo"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_8666m"]
+[ext_resource type="Script" path="res://PlayerData.gd" id="2_pktmx"]
 [ext_resource type="Texture2D" uid="uid://bdgcbyej22xpk" path="res://assets/Main Characters/Virtual Guy/Fall (32x32).png" id="2_xc2nl"]
 [ext_resource type="Texture2D" uid="uid://cnb8xg53va3h3" path="res://assets/Main Characters/Virtual Guy/Idle (32x32).png" id="3_uxlkb"]
 [ext_resource type="Texture2D" uid="uid://q3l4p6sq26vp" path="res://assets/Main Characters/Virtual Guy/Jump (32x32).png" id="4_wang6"]
 [ext_resource type="Texture2D" uid="uid://b7bibgb6ylkbl" path="res://assets/Main Characters/Virtual Guy/Run (32x32).png" id="5_rttrm"]
 [ext_resource type="Texture2D" uid="uid://kiovndhvqbet" path="res://assets/Main Characters/Virtual Guy/wall_cling.png" id="6_hiisw"]
+[ext_resource type="PackedScene" uid="uid://b47mfgnpisfhi" path="res://hurt_box.tscn" id="8_jl5yo"]
+
+[sub_resource type="Resource" id="Resource_6axiw"]
+script = ExtResource("2_pktmx")
+SPEED = 200.0
+ACCELERATION_GROUND = 1000.0
+ACCELERATION_AIR = 600.0
+AIR_TURN_ACCELERATION = 500.0
+FRICTION_GROUND = 800.0
+FRICTION_AIR = 300.0
+JUMP_VELOCITY = -460.0
+MAX_JUMPS_ALLOWED = 2
+GRAVITY = 1200.0
+WALL_SLIDE_SPEED = 40.0
+WALL_JUMP_FORCE = Vector2(50, -460)
+WALL_JUMP_DURATION = 0.2
+JUMP_BUFFER_TIME = 0.125
+COYOTE_TIME = 0.1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fsedu"]
 atlas = ExtResource("2_xc2nl")
@@ -220,11 +239,27 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bs7i8"]
 height = 28.0
 
+[sub_resource type="Gradient" id="Gradient_wowm8"]
+offsets = PackedFloat32Array(0, 0.679671)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hp4k0"]
+gradient = SubResource("Gradient_wowm8")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_moami"]
+height = 28.0
+
 [node name="Player" type="CharacterBody2D"]
+visibility_layer = 4
 collision_layer = 2
 script = ExtResource("1_8666m")
+data = SubResource("Resource_6axiw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 34
+visibility_layer = 4
 sprite_frames = SubResource("SpriteFrames_mdxv4")
 animation = &"wall_cling"
 
@@ -242,4 +277,23 @@ limit_left = 0
 limit_top = 0
 limit_smoothed = true
 
+[node name="PointLight2D" type="PointLight2D" parent="."]
+light_mask = 0
+color = Color(0.423529, 0.854902, 0.945098, 1)
+range_item_cull_mask = 2
+shadow_enabled = true
+shadow_item_cull_mask = 2
+texture = SubResource("GradientTexture2D_hp4k0")
+texture_scale = 3.01
+
+[node name="HurtBox" parent="." instance=ExtResource("8_jl5yo")]
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_moami")
+debug_color = Color(0.973566, 0, 0.43307, 0.42)
+
 [connection signal="timeout" from="CoyoteTime" to="." method="_on_coyote_time_timeout"]
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+
+[editable path="HurtBox"]

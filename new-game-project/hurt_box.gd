@@ -1,8 +1,6 @@
-extends Node2D
-class_name Level1
-@export var next_level : PackedScene
-
-signal level_complete
+extends Area2D
+class_name HurtBox
+signal hurt(hitbox : HitBox)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,6 +12,11 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_goal_body_entered(body: Node2D) -> void:
-	print("on goal")
-	level_complete.emit()
+
+
+func _on_area_entered(hitbox: HitBox) -> void:
+	print("hit")
+	if hitbox != HitBox:
+		return
+	hurt.emit(hitbox)
+	pass # Replace with function body.
