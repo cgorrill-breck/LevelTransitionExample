@@ -153,9 +153,6 @@ func handle_animation(direction):
 func _on_coyote_time_timeout() -> void:
 	in_coyote_time = false
 
-
-
-
-
-func _on_hurt_box_hurt(hitbox: HitBox) -> void:
+func _on_hurt_box_hurt(hitbox: HitBox, damage: int) -> void:
 	print("HIT")
+	queue_free()

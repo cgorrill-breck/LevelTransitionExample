@@ -205,7 +205,6 @@ target_position = Vector2(15, 22)
 collide_with_areas = true
 
 [node name="HitBox" parent="." instance=ExtResource("4_dgwje")]
-collision_mask = 16
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 shape = SubResource("CapsuleShape2D_5ijjj")
